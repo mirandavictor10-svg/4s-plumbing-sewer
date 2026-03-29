@@ -26,7 +26,7 @@ const Hero = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-[100svh] flex items-center justify-center pt-24 pb-12 overflow-hidden bg-background">
+    <section ref={containerRef} className="relative min-h-[100svh] flex items-center justify-center pt-24 pb-12 overflow-hidden bg-slate-950">
       {/* Full-Screen Video Background */}
       <motion.div 
         className="absolute inset-0 z-0 origin-top"
@@ -42,10 +42,10 @@ const Hero = () => {
         >
           <source src="/videos/hero-transition.mp4" type="video/mp4" />
         </video>
-        {/* Dark overlay gradients for readability */}
-        <div className="absolute inset-0 bg-background/70 backdrop-blur-[2px]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-transparent" />
+        {/* Dark overlay gradients for cinematic contrast and readability */}
+        <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent" />
       </motion.div>
 
       {/* Hero Content */}
@@ -62,15 +62,15 @@ const Hero = () => {
           {/* Industrial Badge */}
           <div className="inline-flex items-center gap-2 bg-secondary/20 border border-secondary/30 backdrop-blur-md px-4 py-1.5 rounded-full mb-8">
             <Zap className="w-3.5 h-3.5 text-secondary animate-pulse" />
-            <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-foreground">Chicago's Industrial Standard</span>
+            <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white">Chicago's Industrial Standard</span>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-foreground mb-8 font-black drop-shadow-2xl">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-white mb-8 font-black drop-shadow-2xl">
             Master Plumbing <br className="hidden xl:block" />
             <span className="text-secondary italic">Precision</span> Engineering.
           </h1>
           
-          <p className="text-xl sm:text-2xl text-foreground/80 mb-10 max-w-2xl leading-relaxed font-medium drop-shadow-lg mx-auto xl:mx-0">
+          <p className="text-xl sm:text-2xl text-slate-200 mb-10 max-w-2xl leading-relaxed font-medium drop-shadow-lg mx-auto xl:mx-0">
             We don't just fix leaks; we rebuild infrastructure. Licensed experts delivering 24/7 industrial-grade plumbing solutions across Chicago in under 45 minutes.
           </p>
 
@@ -84,7 +84,7 @@ const Hero = () => {
             </a>
             <button
               onClick={scrollToContact}
-              className="flex flex-1 w-full sm:flex-none sm:w-auto items-center justify-center gap-3 bg-background/40 backdrop-blur-md border border-foreground/20 text-foreground px-8 py-5 rounded-2xl text-lg font-bold hover:bg-background/60 hover:border-foreground/40 transition-all shadow-xl"
+              className="flex flex-1 w-full sm:flex-none sm:w-auto items-center justify-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-5 rounded-2xl text-lg font-bold hover:bg-white/20 hover:border-white/40 transition-all shadow-xl"
             >
               <CalendarCheck className="w-5 h-5" /> Book Online
             </button>
@@ -94,7 +94,7 @@ const Hero = () => {
             {trustBadges.map((b) => (
               <div
                 key={b.label}
-                className="flex items-center gap-2 bg-background/30 backdrop-blur-md border border-foreground/10 px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider text-foreground/90 shadow-lg"
+                className="flex items-center gap-2 bg-slate-900/50 backdrop-blur-md border border-white/10 px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-200 shadow-lg"
               >
                 <b.icon className="w-3.5 h-3.5 text-secondary" />
                 {b.label}
