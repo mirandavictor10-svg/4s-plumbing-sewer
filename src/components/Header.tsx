@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Phone, Menu, X, Zap } from "lucide-react";
+import { Phone, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
 
@@ -28,19 +28,11 @@ const Header = () => {
 
   return (
     <>
-      {/* Top Banner URgency */}
-      <div className="bg-foreground text-background py-2 text-center text-[10px] font-black uppercase tracking-[0.3em] z-50 relative">
-        <div className="flex items-center justify-center gap-2">
-          <Zap className="w-3 h-3 text-secondary animate-pulse" />
-          <span>Priority Industrial Dispatch — Average Response: 47 Min</span>
-        </div>
-      </div>
-
-      <header 
+      <header
         className={`sticky top-0 z-40 transition-all duration-300 border-b ${
-          scrolled 
-            ? "bg-background/95 backdrop-blur-xl border-foreground/10 py-2 shadow-xl" 
-            : "bg-transparent border-transparent py-4"
+          scrolled
+            ? "bg-background/95 backdrop-blur-xl border-foreground/10 py-2 shadow-xl"
+            : "bg-transparent border-transparent py-3"
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
@@ -50,7 +42,7 @@ const Header = () => {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <div className="relative">
-              <img src={logo} alt="4S Plumbing" className="h-[100px] w-auto relative z-10" />
+              <img src={logo} alt="4S Plumbing" className="h-14 w-auto relative z-10" />
               <div className="absolute -inset-2 bg-secondary/5 rounded-full blur-xl group-hover:bg-secondary/10 transition-colors" />
             </div>
           </a>
