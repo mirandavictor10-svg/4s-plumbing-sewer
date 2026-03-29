@@ -34,8 +34,8 @@ const Header = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`sticky top-0 inset-x-0 z-50 transition-all duration-500 border-b ${
           scrolled
-            ? "bg-white/98 backdrop-blur-xl border-slate-200 shadow-md py-0"
-            : "bg-white border-slate-100 py-0"
+            ? "bg-white border-slate-200 shadow-md py-0"
+            : "bg-transparent border-transparent py-0"
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
@@ -52,7 +52,7 @@ const Header = () => {
               whileTap={{ scale: 0.95 }}
               src={logo} 
               alt="4S Plumbing" 
-              className="h-[120px] w-auto relative z-10 transition-all" 
+              className={`h-[120px] w-auto relative z-10 transition-all duration-500 ${scrolled ? "" : "brightness-0 invert"}`} 
             />
           </a>
 
@@ -65,7 +65,7 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + (i * 0.1) }}
                 onClick={() => scrollTo(l.href)}
-                className="text-xs font-black uppercase tracking-[0.25em] text-slate-500 hover:text-slate-900 transition-colors relative group py-2"
+                className={`text-xs font-black uppercase tracking-[0.25em] transition-colors relative group py-2 ${scrolled ? "text-slate-500 hover:text-slate-900" : "text-white/80 hover:text-white"}`}
               >
                 {l.label}
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
@@ -82,7 +82,7 @@ const Header = () => {
           >
             <a
               href="tel:7733533050"
-              className="group relative hidden sm:flex items-center gap-2 bg-slate-900 border border-slate-900 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-secondary hover:border-secondary transition-all duration-300"
+              className={`group relative hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300 ${scrolled ? "bg-slate-900 border border-slate-900 text-white hover:bg-secondary hover:border-secondary" : "bg-white/10 border border-white/30 text-white hover:bg-white/20"}`}
             >
               <div className="absolute inset-0 rounded-full bg-secondary/0 group-hover:bg-secondary/10 blur-md transition-all duration-300" />
               <Phone className="w-3.5 h-3.5 relative z-10 group-hover:animate-pulse" /> 
@@ -93,7 +93,7 @@ const Header = () => {
             
             <button 
               onClick={() => setOpen(!open)} 
-              className="lg:hidden relative p-2 text-slate-900 bg-slate-100 border border-slate-200 rounded-full active:scale-95 transition-all"
+              className={`lg:hidden relative p-2 rounded-full active:scale-95 transition-all ${scrolled ? "text-slate-900 bg-slate-100 border border-slate-200" : "text-white bg-white/10 border border-white/30"}`}
               aria-label="Toggle menu"
             >
               {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
