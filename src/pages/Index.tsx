@@ -1,4 +1,3 @@
-import EmergencyBar from "@/components/EmergencyBar";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
@@ -15,7 +14,6 @@ import MobileCTABar from "@/components/MobileCTABar";
 
 const Index = () => (
   <div className="pb-16 md:pb-0">
-    <EmergencyBar />
     <Header />
     <Hero />
     <SocialProof />
