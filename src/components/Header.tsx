@@ -32,7 +32,7 @@ const Header = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`sticky top-0 inset-x-0 z-50 transition-all duration-500 border-b ${
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 border-b ${
           scrolled
             ? "bg-white border-slate-200 shadow-md py-0"
             : "bg-transparent border-transparent py-0"
@@ -65,7 +65,7 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + (i * 0.1) }}
                 onClick={() => scrollTo(l.href)}
-                className={`text-xs font-black uppercase tracking-[0.25em] transition-colors relative group py-2 ${scrolled ? "text-slate-500 hover:text-slate-900" : "text-white/80 hover:text-white"}`}
+                className={`text-xs font-black uppercase tracking-[0.25em] transition-all relative group px-4 py-2 rounded-full ${scrolled ? "text-slate-500 hover:text-slate-900" : "text-white bg-white/10 backdrop-blur-md hover:bg-white/20"}`}
               >
                 {l.label}
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
