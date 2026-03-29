@@ -12,18 +12,29 @@ const navLinks = [
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(true); // hero is dark by default
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.85);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const sections = document.querySelectorAll("[data-header-theme]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the topmost intersecting section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) {
+          setIsDark(visible[0].target.getAttribute("data-header-theme") === "dark");
+        }
+      },
+      { rootMargin: "-10% 0px -85% 0px", threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   const scrollTo = (href: string) => {
     setOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -32,49 +43,48 @@ const Header = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 border-b ${
-          scrolled
-            ? "bg-white border-slate-200 shadow-md py-0"
-            : "bg-transparent border-transparent py-0"
-        }`}
+        className="fixed top-0 inset-x-0 z-50 border-b border-transparent py-0"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
-          
-          {/* Logo Group */}
-          <a 
-            href="#" 
-            className="flex items-center gap-3 group relative" 
+
+          {/* Logo */}
+          <a
+            href="#"
+            className="flex items-center gap-3 group relative"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
           >
             <div className="absolute -inset-4 bg-secondary/0 rounded-full blur-2xl transition-all duration-500 group-hover:bg-secondary/20" />
-            <motion.img 
+            <motion.img
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              src={logo} 
-              alt="4S Plumbing" 
-              className={`h-[120px] w-auto relative z-10 transition-all duration-500 ${scrolled ? "" : "brightness-0 invert"}`} 
+              src={logo}
+              alt="4S Plumbing"
+              className={`h-[120px] w-auto relative z-10 transition-all duration-500 ${isDark ? "brightness-0 invert" : ""}`}
             />
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-3">
             {navLinks.map((l, i) => (
               <motion.button
                 key={l.href}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + (i * 0.1) }}
+                transition={{ delay: 0.2 + i * 0.1 }}
                 onClick={() => scrollTo(l.href)}
-                className={`text-xs font-black uppercase tracking-[0.25em] transition-all relative group px-4 py-2 rounded-full ${scrolled ? "text-slate-500 hover:text-slate-900" : "text-white bg-white/10 backdrop-blur-md hover:bg-white/20"}`}
+                className={`text-xs font-black uppercase tracking-[0.25em] transition-all duration-300 px-4 py-2 rounded-full backdrop-blur-md ${
+                  isDark
+                    ? "text-white bg-white/10 hover:bg-white/25 border border-white/20"
+                    : "text-slate-700 bg-black/8 hover:bg-black/15 border border-black/10"
+                }`}
               >
                 {l.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
               </motion.button>
             ))}
           </nav>
 
           {/* Actions */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
@@ -82,18 +92,25 @@ const Header = () => {
           >
             <a
               href="tel:7733533050"
-              className={`group relative hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300 ${scrolled ? "bg-slate-900 border border-slate-900 text-white hover:bg-secondary hover:border-secondary" : "bg-white/10 border border-white/30 text-white hover:bg-white/20"}`}
+              className={`group relative hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300 backdrop-blur-md ${
+                isDark
+                  ? "bg-white/10 border border-white/30 text-white hover:bg-white/25"
+                  : "bg-slate-900 border border-slate-900 text-white hover:bg-secondary hover:border-secondary"
+              }`}
             >
-              <div className="absolute inset-0 rounded-full bg-secondary/0 group-hover:bg-secondary/10 blur-md transition-all duration-300" />
-              <Phone className="w-3.5 h-3.5 relative z-10 group-hover:animate-pulse" /> 
+              <Phone className="w-3.5 h-3.5 relative z-10" />
               <span className="relative z-10 flex items-center gap-2">
-                (773) 353-3050 <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                (773) 353-3050 <ArrowUpRight className="w-3.5 h-3.5 opacity-50" />
               </span>
             </a>
-            
-            <button 
-              onClick={() => setOpen(!open)} 
-              className={`lg:hidden relative p-2 rounded-full active:scale-95 transition-all ${scrolled ? "text-slate-900 bg-slate-100 border border-slate-200" : "text-white bg-white/10 border border-white/30"}`}
+
+            <button
+              onClick={() => setOpen(!open)}
+              className={`lg:hidden relative p-2 rounded-full active:scale-95 transition-all backdrop-blur-md ${
+                isDark
+                  ? "text-white bg-white/10 border border-white/30"
+                  : "text-slate-900 bg-black/8 border border-black/10"
+              }`}
               aria-label="Toggle menu"
             >
               {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -104,11 +121,11 @@ const Header = () => {
         {/* Mobile Menu */}
         <AnimatePresence>
           {open && (
-            <motion.div 
+            <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} // smooth cinematic spring
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="lg:hidden absolute top-full left-0 right-0 bg-slate-950/95 backdrop-blur-3xl border-b border-white/10 overflow-hidden shadow-2xl"
             >
               <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col gap-6">
@@ -125,8 +142,8 @@ const Header = () => {
                     <ArrowUpRight className="w-5 h-5 opacity-30" />
                   </motion.button>
                 ))}
-                
-                <motion.div 
+
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}

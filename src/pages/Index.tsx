@@ -15,17 +15,17 @@ import MobileCTABar from "@/components/MobileCTABar";
 const Index = () => (
   <div className="pb-16 md:pb-0">
     <Header />
-    <Hero />
-    <SocialProof />
-    <ServiceGrid />
-    <HowItWorks />
-    <WhyUs />
-    <EmergencyCTA />
-    <Testimonials />
-    <About />
-    <ServiceAreas />
-    <ContactForm />
-    <Footer />
+    <div data-header-theme="dark"><Hero /></div>
+    <div data-header-theme="light"><SocialProof /></div>
+    <div data-header-theme="light"><ServiceGrid /></div>
+    <div data-header-theme="light"><HowItWorks /></div>
+    <div data-header-theme="dark"><WhyUs /></div>
+    <div data-header-theme="dark"><EmergencyCTA /></div>
+    <div data-header-theme="light"><Testimonials /></div>
+    <div data-header-theme="light"><About /></div>
+    <div data-header-theme="light"><ServiceAreas /></div>
+    <div data-header-theme="light"><ContactForm /></div>
+    <div data-header-theme="dark"><Footer /></div>
     <MobileCTABar />
   </div>
 );
