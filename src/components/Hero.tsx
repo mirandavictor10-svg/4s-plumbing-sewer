@@ -25,7 +25,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center pt-24 pb-12 overflow-hidden bg-slate-950">
+    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-slate-950">
 
       {/* Full-Screen Video Background — plays unobstructed */}
       <div className="absolute inset-0 z-0">

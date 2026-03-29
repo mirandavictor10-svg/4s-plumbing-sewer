@@ -34,8 +34,8 @@ const Header = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`sticky top-0 inset-x-0 z-50 transition-all duration-500 border-b ${
           scrolled
-            ? "bg-white/98 backdrop-blur-xl border-slate-200 shadow-md py-2"
-            : "bg-white border-slate-100 py-2"
+            ? "bg-white/98 backdrop-blur-xl border-slate-200 shadow-md py-0"
+            : "bg-white border-slate-100 py-0"
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
