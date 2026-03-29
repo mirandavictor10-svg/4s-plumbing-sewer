@@ -62,17 +62,13 @@ const Hero = () => {
         )}
       </AnimatePresence>
 
-      {/* Dynamic Overlays — appear on scroll */}
+      {/* Bottom gradient only — video stays visible, content readable on scroll */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: hasScrolled ? 1 : 0 }}
         transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="absolute inset-0 z-10 pointer-events-none"
-      >
-        <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[1px]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent" />
-      </motion.div>
+        className="absolute inset-x-0 bottom-0 h-2/3 z-10 pointer-events-none bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"
+      />
 
       {/* Hero Content — slides up on scroll */}
       <motion.div
