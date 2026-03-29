@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Phone, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Phone, Menu, X, Zap } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
 
 const navLinks = [
@@ -11,6 +12,13 @@ const navLinks = [
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollTo = (href: string) => {
     setOpen(false);
@@ -19,59 +27,107 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-[40px] z-40 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-        <a href="#" className="flex items-center gap-2" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <img src={logo} alt="4S Plumbing" className="h-10 w-auto" />
-        </a>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((l) => (
-            <button
-              key={l.href}
-              onClick={() => scrollTo(l.href)}
-              className="text-sm font-semibold text-foreground/80 hover:text-foreground transition-colors"
-            >
-              {l.label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <a
-            href="tel:7733533050"
-            className="md:hidden flex items-center gap-1.5 bg-secondary text-secondary-foreground px-4 py-2 rounded-lg text-sm font-bold hover:brightness-110 transition"
-          >
-            <Phone className="w-4 h-4" /> Call
-          </a>
-          <button
-            onClick={() => scrollTo("#contact")}
-            className="hidden md:flex items-center gap-2 bg-secondary text-secondary-foreground px-5 py-2.5 rounded-lg text-sm font-bold hover:brightness-110 transition shadow-lg shadow-secondary/25"
-          >
-            Book Now
-          </button>
-          <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-foreground">
-            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+    <>
+      {/* Top Banner URgency */}
+      <div className="bg-foreground text-background py-2 text-center text-[10px] font-black uppercase tracking-[0.3em] z-50 relative">
+        <div className="flex items-center justify-center gap-2">
+          <Zap className="w-3 h-3 text-secondary animate-pulse" />
+          <span>Priority Industrial Dispatch — Average Response: 47 Min</span>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden bg-background border-t border-border px-4 pb-4 animate-fade-in">
-          {navLinks.map((l) => (
-            <button
-              key={l.href}
-              onClick={() => scrollTo(l.href)}
-              className="block w-full text-left py-3 text-base font-semibold text-foreground/80 hover:text-foreground border-b border-border/50"
+      <header 
+        className={`sticky top-0 z-40 transition-all duration-300 border-b ${
+          scrolled 
+            ? "bg-background/95 backdrop-blur-xl border-foreground/10 py-2 shadow-xl" 
+            : "bg-transparent border-transparent py-4"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
+          <a 
+            href="#" 
+            className="flex items-center gap-2 group transition-transform hover:scale-105" 
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <div className="relative">
+              <img src={logo} alt="4S Plumbing" className="h-12 w-auto relative z-10" />
+              <div className="absolute -inset-2 bg-secondary/5 rounded-full blur-xl group-hover:bg-secondary/10 transition-colors" />
+            </div>
+          </a>
+
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-10">
+            {navLinks.map((l) => (
+              <button
+                key={l.href}
+                onClick={() => scrollTo(l.href)}
+                className="text-[11px] font-black uppercase tracking-[0.2em] text-foreground/60 hover:text-secondary transition-all relative group"
+              >
+                {l.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all group-hover:w-full" />
+              </button>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-5">
+            <a
+              href="tel:7733533050"
+              className="flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-secondary hover:text-background transition-all shadow-lg active:scale-95"
             >
-              {l.label}
+              <Phone className="w-3.5 h-3.5" /> 
+              <span className="hidden sm:inline">Dispatch: </span>
+              (773) 353-3050
+            </a>
+            
+            <button 
+              onClick={() => setOpen(!open)} 
+              className="lg:hidden p-2 text-foreground active:scale-90 transition-transform"
+              aria-label="Toggle menu"
+            >
+              {open ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
             </button>
-          ))}
+          </div>
         </div>
-      )}
-    </header>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {open && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "circOut" }}
+              className="lg:hidden bg-background border-t border-foreground/5 px-6 overflow-hidden"
+            >
+              <div className="py-8 space-y-6">
+                {navLinks.map((l, i) => (
+                  <motion.button
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: i * 0.05 }}
+                    key={l.href}
+                    onClick={() => scrollTo(l.href)}
+                    className="block w-full text-left text-2xl font-black uppercase tracking-tighter text-foreground/80 hover:text-secondary transition-colors"
+                  >
+                    {l.label}
+                  </motion.button>
+                ))}
+                
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="pt-6 border-t border-foreground/5"
+                >
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest mb-4">Emergency Support</p>
+                  <a href="tel:7733533050" className="text-3xl font-black text-secondary tracking-tighter">(773) 353-3050</a>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
   );
 };
 

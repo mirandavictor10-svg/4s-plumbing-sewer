@@ -1,32 +1,67 @@
-import { useFadeUp } from "@/hooks/useFadeUp";
+import { Award, CheckCircle, Users, Zap } from "lucide-react";
+import { motion } from "framer-motion";
+
+const stats = [
+  { label: "Precision Ops", value: "10+", sub: "Years Experience" },
+  { label: "Successful Units", value: "1K+", sub: "Projects Deployed" },
+  { label: "Elite Workforce", value: "25+", sub: "Master Certified" },
+];
 
 const About = () => {
-  const ref = useFadeUp();
-
   return (
-    <section id="about" className="section-padding bg-background" ref={ref}>
-      <div className="max-w-4xl mx-auto text-center fade-up">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl text-foreground mb-6">
-          Meet the Team Behind 4S Plumbing
-        </h2>
-        <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-          Led by William V. Taylor III, our team of 25+ certified professionals has spent over a decade
-          serving Chicago with honesty, fairness, and expert craftsmanship. From Master Plumbers to HVAC
-          technicians, every member of our crew is licensed, trained, and committed to getting the job done right.
-        </p>
+    <section id="about" className="section-padding bg-muted/20 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            className="space-y-8"
+          >
+            <div className="inline-flex items-center gap-2 bg-secondary/10 px-4 py-1.5 rounded-full">
+              <Zap className="w-3 h-3 text-secondary" />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-secondary">Service Pedigree</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-none">
+              Mechanical <br /><span className="text-secondary italic">Excellence.</span>
+            </h2>
+            <div className="space-y-6 text-xl text-muted-foreground font-medium opacity-80 leading-relaxed">
+              <p>
+                Led by <span className="text-foreground font-black">William V. Taylor III</span>, 4S Plumbing & Sewer represents the pinnacle of Chicago's mechanical infrastructure service. 
+              </p>
+              <p>
+                We don't just fix pipes; we engineer solutions. Every technician in our elite 25-man squad is background-checked, precision-trained, and master-certified to handle the most complex industrial and residential failures.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 pt-4">
+              {["Licensed Master Plumbers", "OSHA Certified", "Bonded & Insured"].map((tag) => (
+                <div key={tag} className="flex items-center gap-2 px-4 py-2 bg-background border border-foreground/5 rounded-xl text-[10px] font-black uppercase tracking-widest text-foreground/40">
+                  <CheckCircle className="w-3 h-3 text-secondary" />
+                  {tag}
+                </div>
+              ))}
+            </div>
+          </motion.div>
 
-        <div className="grid grid-cols-3 gap-8 mt-14 max-w-lg mx-auto">
-          <div>
-            <div className="text-4xl font-bold text-secondary">10+</div>
-            <div className="text-sm text-muted-foreground mt-1">Years Experience</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-secondary">100+</div>
-            <div className="text-sm text-muted-foreground mt-1">Projects Done</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-secondary">25+</div>
-            <div className="text-sm text-muted-foreground mt-1">Certified Plumbers</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-background border border-foreground/5 p-10 rounded-[2rem] hover:border-secondary transition-colors group relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <Award className="w-20 h-20" />
+                </div>
+                <div className="relative z-10">
+                  <div className="text-5xl font-black text-secondary tracking-tighter mb-2">{s.value}</div>
+                  <div className="text-xs font-black uppercase tracking-[0.2em] text-foreground mb-1">{s.label}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground opacity-50">{s.sub}</div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,18 +1,20 @@
-import { Phone, ClipboardList } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 
 const MobileCTABar = () => (
-  <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex shadow-[0_-4px_20px_rgba(0,0,0,0.15)]">
+  <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden flex p-4 gap-3 bg-gradient-to-t from-background via-background/95 to-transparent backdrop-blur-sm">
     <a
       href="tel:7733533050"
-      className="flex-1 flex items-center justify-center gap-2 bg-secondary text-secondary-foreground py-4 font-bold text-sm"
+      className="flex-1 flex items-center justify-center gap-3 bg-secondary text-background py-5 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-2xl shadow-secondary/40"
     >
-      <Phone className="w-5 h-5" /> Call Now
+      <Phone className="w-4 h-4" /> 
+      Dispatch Now
     </a>
     <button
       onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-      className="flex-1 flex items-center justify-center gap-2 bg-accent text-accent-foreground py-4 font-bold text-sm"
+      className="flex-1 flex items-center justify-center gap-3 bg-foreground text-background py-5 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-2xl"
     >
-      <ClipboardList className="w-5 h-5" /> Book Online
+      <MapPin className="w-4 h-4" /> 
+      Service Area
     </button>
   </div>
 );

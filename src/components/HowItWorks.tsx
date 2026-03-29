@@ -1,34 +1,46 @@
-import { PhoneCall, Truck, ThumbsUp } from "lucide-react";
-import { useFadeUp } from "@/hooks/useFadeUp";
+import { PhoneCall, Truck, CheckCircle2, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const steps = [
-  { num: "1", icon: PhoneCall, title: "Call or Book Online", desc: "Reach us 24/7 by phone or fill out our quick form." },
-  { num: "2", icon: Truck, title: "We Show Up Fast", desc: "A licensed plumber arrives at your door — usually within the hour." },
-  { num: "3", icon: ThumbsUp, title: "Problem Fixed. Guaranteed.", desc: "Transparent pricing. No surprises. Just quality work." },
+  { num: "01", icon: PhoneCall, title: "Report Intake", desc: "Contact our dispatch 24/7. Immediate situation analysis performed on first call." },
+  { num: "02", icon: Truck, title: "Rapid Deployment", desc: "Master-certified technician dispatched to your coordinates within 60 minutes." },
+  { num: "03", icon: CheckCircle2, title: "Mission Completion", desc: "Surgical repair executed with transparent pricing and full operational guarantee." },
 ];
 
 const HowItWorks = () => {
-  const ref = useFadeUp();
-
   return (
-    <section className="section-padding bg-section-alt" ref={ref}>
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl text-foreground text-center mb-14 fade-up">
-          Getting Help Is Easy
-        </h2>
-        <div className="grid md:grid-cols-3 gap-8 relative">
-          {/* Connecting line */}
-          <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-border" />
+    <section className="section-padding bg-background relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-20 space-y-6">
+          <div className="inline-flex items-center gap-2 bg-secondary/10 px-4 py-1.5 rounded-full">
+            <Zap className="w-3 h-3 text-secondary" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-secondary">Operational Protocol</span>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-none">
+            Standard Operating <br /><span className="text-secondary italic">Procedure.</span>
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-12 relative">
+          <div className="hidden md:block absolute top-[2.25rem] left-[10%] right-[10%] h-px bg-foreground/5 z-0" />
 
           {steps.map((s, i) => (
-            <div key={s.num} className="fade-up text-center relative" style={{ transitionDelay: `${i * 150}ms` }}>
-              <div className="w-16 h-16 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center mx-auto mb-5 text-2xl font-bold shadow-lg shadow-secondary/20 relative z-10">
-                {s.num}
+            <motion.div 
+              key={s.num}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="text-center group relative z-10"
+            >
+              <div className="w-20 h-20 rounded-[1.5rem] bg-foreground text-background flex items-center justify-center mx-auto mb-8 text-2xl font-black shadow-2xl group-hover:bg-secondary group-hover:text-background transition-all duration-500 relative">
+                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-secondary text-background text-[10px] flex items-center justify-center border-4 border-background leading-none">
+                  {s.num}
+                </div>
+                <s.icon className="w-8 h-8" />
               </div>
-              <s.icon className="w-8 h-8 text-foreground/60 mx-auto mb-3" />
-              <h3 className="text-lg font-body font-bold text-foreground mb-2">{s.title}</h3>
-              <p className="text-sm text-muted-foreground max-w-xs mx-auto">{s.desc}</p>
-            </div>
+              <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-4">{s.title}</h3>
+              <p className="text-sm text-muted-foreground font-medium max-w-[240px] mx-auto opacity-60 leading-relaxed uppercase tracking-widest">{s.desc}</p>
+            </motion.div>
           ))}
         </div>
       </div>
