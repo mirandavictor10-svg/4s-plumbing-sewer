@@ -1,5 +1,6 @@
-import { Phone, CalendarCheck, Star, Shield, Clock, DollarSign, Zap } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Phone, CalendarCheck, Star, Shield, Clock, DollarSign, Zap, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const trustBadges = [
   { icon: Star, label: "HomeAdvisor Approved" },
@@ -9,14 +10,24 @@ const trustBadges = [
 ];
 
 const Hero = () => {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 30) setHasScrolled(true);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const scrollToContact = () => {
     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center pt-24 pb-12 overflow-hidden bg-slate-950">
-      
-      {/* Full-Screen Video Background (Always behind) */}
+
+      {/* Full-Screen Video Background — plays unobstructed */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -30,11 +41,32 @@ const Hero = () => {
         </video>
       </div>
 
-      {/* Dynamic Overlays (Timed Fade-In after 2 seconds) */}
-      <motion.div 
+      {/* Scroll Indicator — pulses until user scrolls */}
+      <AnimatePresence>
+        {!hasScrolled && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
+          >
+            <span className="text-white/70 text-xs font-semibold uppercase tracking-widest">Scroll to explore</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ChevronDown className="w-6 h-6 text-white/70" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Dynamic Overlays — appear on scroll */}
+      <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 1.5, ease: "easeInOut" }}
+        animate={{ opacity: hasScrolled ? 1 : 0 }}
+        transition={{ duration: 1.5, ease: "easeInOut" }}
         className="absolute inset-0 z-10 pointer-events-none"
       >
         <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[1px]" />
@@ -42,11 +74,11 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent" />
       </motion.div>
 
-      {/* Hero Content (Timed Slide-Up & Fade-In after 2.5 seconds) */}
-      <motion.div 
+      {/* Hero Content — slides up on scroll */}
+      <motion.div
         initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.2, duration: 1.2, ease: "easeOut" }}
+        animate={{ opacity: hasScrolled ? 1 : 0, y: hasScrolled ? 0 : 40 }}
+        transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
         className="max-w-7xl mx-auto px-6 relative z-20 w-full font-sans flex flex-col items-center xl:items-start text-center xl:text-left mt-20 lg:mt-0"
       >
         <div className="max-w-4xl">
@@ -60,7 +92,7 @@ const Hero = () => {
             Master Plumbing <br className="hidden xl:block" />
             <span className="text-secondary italic">Precision</span> Engineering.
           </h1>
-          
+
           <p className="text-xl sm:text-2xl text-slate-200 mb-10 max-w-2xl leading-relaxed font-medium drop-shadow-lg mx-auto xl:mx-0">
             We don't just fix leaks; we rebuild infrastructure. Licensed experts delivering 24/7 industrial-grade plumbing solutions across Chicago in under 45 minutes.
           </p>
@@ -70,7 +102,7 @@ const Hero = () => {
               href="tel:7733533050"
               className="group flex flex-1 w-full sm:flex-none sm:w-auto items-center justify-center gap-3 bg-secondary text-secondary-foreground px-8 py-5 rounded-2xl text-lg font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-secondary/40 border border-secondary/50"
             >
-              <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" /> 
+              <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
               (773) 353-3050
             </a>
             <button
