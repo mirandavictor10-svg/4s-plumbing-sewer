@@ -2,18 +2,18 @@ import { Zap } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 
 const team = [
-  { name: "William \"Bill\" Taylor III", title: "Owner & Founder", photo: "/images/team/bill-taylor.jpg", highlight: true },
-  { name: "Todd Menegon", title: "Master 055 Plumber / Project Foreman", photo: "/images/team/todd-menegon.png" },
-  { name: "Ryan Brown", title: "Master 055 Plumber", photo: "/images/team/ryan-brown.png" },
-  { name: "Dominic Costantino", title: "Plumbing Supervisor", photo: "/images/team/dominic-costantino.jpg" },
-  { name: "Eric Kronenbitter", title: "Plumber / Sewer Supervisor", photo: "/images/team/eric-kronenbitter.png" },
-  { name: "Joseph O'Neal", title: "Plumbing Field Supervisor", photo: "/images/team/joseph-oneal.png" },
-  { name: "Tim Morano", title: "Plumber / Carpenter", photo: "/images/team/tim-morano.png" },
-  { name: "Paul Carrasquillo", title: "Plumber", photo: "/images/team/paul-carrasquillo.png" },
-  { name: "Joseph Lundgren", title: "Plumber / Drain Specialist", photo: "/images/team/joseph-lundgren.png" },
-  { name: "Raymond Reyes", title: "HVAC Technician", photo: "/images/team/raymond-reyes.png" },
-  { name: "Ahmad Al-Awawdeh", title: "Plumbing Supervisor", photo: "/images/team/ahmad-al-awawdeh.png" },
-  { name: "John Love", title: "Plumber / Sewer Specialist", photo: "/images/team/john-love.png" },
+  { name: "William \"Bill\" Taylor III", title: "Owner & Founder", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/bill-taylor.jpg", highlight: true },
+  { name: "Todd Menegon", title: "Master 055 Plumber / Project Foreman", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/todd-menegon.png" },
+  { name: "Ryan Brown", title: "Master 055 Plumber", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/ryan-brown.png" },
+  { name: "Dominic Costantino", title: "Plumbing Supervisor", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/dominic-costantino.jpg" },
+  { name: "Eric Kronenbitter", title: "Plumber / Sewer Supervisor", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/eric-kronenbitter.png" },
+  { name: "Joseph O'Neal", title: "Plumbing Field Supervisor", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/joseph-oneal.png" },
+  { name: "Tim Morano", title: "Plumber / Carpenter", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/tim-morano.png" },
+  { name: "Paul Carrasquillo", title: "Plumber", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/paul-carrasquillo.png" },
+  { name: "Joseph Lundgren", title: "Plumber / Drain Specialist", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/joseph-lundgren.png" },
+  { name: "Raymond Reyes", title: "HVAC Technician", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/raymond-reyes.png" },
+  { name: "Ahmad Al-Awawdeh", title: "Plumbing Supervisor", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/ahmad-al-awawdeh.png" },
+  { name: "John Love", title: "Plumber / Sewer Specialist", photo: "https://herlemnsfxaozokirbwm.supabase.co/storage/v1/object/public/4s-plumbing/team/john-love.png" },
 ];
 
 const containerVariants: Variants = {
