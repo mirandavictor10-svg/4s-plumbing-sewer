@@ -23,19 +23,36 @@ const zones = [
 
 // All neighborhood dot positions in SVG viewBox (0–100 coordinate space)
 // x = left%, y = top% — matches CSS position of floating labels exactly
+// Spread out to use the outer ring area (0–15 / 85–100 range)
 const allDots = [
-  { name: "Lincoln Park",  x: 68, y: 22 },
-  { name: "Loop",          x: 72, y: 55 },
-  { name: "Irving Park",   x: 25, y: 35 },
-  { name: "Elmwood Park",  x: 15, y: 52 },
-  { name: "O'Hare",        x: 30, y: 18 },
-  { name: "Hyde Park",     x: 65, y: 72 },
-  { name: "Norridge",      x: 75, y: 38 },
-  { name: "Portage Park",  x: 28, y: 68 },
-  { name: "Wicker Park",   x: 20, y: 45 },
-  { name: "Lakeview",      x: 62, y: 28 },
-  { name: "Bridgeport",    x: 57, y: 64 },
+  { name: "Lincoln Park",  x: 72, y: 12 },
+  { name: "Loop",          x: 82, y: 52 },
+  { name: "Irving Park",   x: 14, y: 28 },
+  { name: "Elmwood Park",  x: 8,  y: 58 },
+  { name: "O'Hare",        x: 25, y: 8  },
+  { name: "Hyde Park",     x: 58, y: 85 },
+  { name: "Norridge",      x: 84, y: 25 },
+  { name: "Portage Park",  x: 24, y: 78 },
+  { name: "Wicker Park",   x: 10, y: 42 },
+  { name: "Lakeview",      x: 58, y: 15 },
+  { name: "Bridgeport",    x: 62, y: 72 },
 ];
+
+// Compute a quadratic bezier arc from center (50,50) to destination
+function getArcPath(dx: number, dy: number) {
+  const mx = (50 + dx) / 2;
+  const my = (50 + dy) / 2;
+  const diffX = dx - 50;
+  const diffY = dy - 50;
+  const len = Math.sqrt(diffX * diffX + diffY * diffY);
+  // Perpendicular offset (clockwise) for arc curvature
+  const px = -diffY / len;
+  const py = diffX / len;
+  const strength = len * 0.28;
+  const cx = mx + px * strength;
+  const cy = my + py * strength;
+  return `M 50 50 Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${dx} ${dy}`;
+}
 
 // Three beams, each cycling through a different subset of destinations
 const beamGroups = [
@@ -77,7 +94,7 @@ function DispatchBeam({ dests, initialDelay }: { dests: Dot[]; initialDelay: num
       {/* Traveling beam — comet segment that travels HQ → destination then disappears */}
       <motion.path
         key={`line-${cycle}`}
-        d={`M 50 50 L ${dest.x} ${dest.y}`}
+        d={getArcPath(dest.x, dest.y)}
         stroke="rgba(96,165,250,0.7)"
         strokeWidth="0.45"
         strokeLinecap="round"
@@ -215,17 +232,17 @@ const ServiceAreas = () => {
 
               {/* Floating neighborhood labels */}
               {[
-                { name: "Lincoln Park",  top: "22%", left: "68%" },
-                { name: "Loop",          top: "55%", left: "72%" },
-                { name: "Irving Park",   top: "35%", left: "25%" },
-                { name: "Elmwood Park",  top: "52%", left: "15%" },
-                { name: "O'Hare",        top: "18%", left: "30%" },
-                { name: "Hyde Park",     top: "72%", left: "65%" },
-                { name: "Norridge",      top: "38%", left: "75%" },
-                { name: "Portage Park",  top: "68%", left: "28%" },
-                { name: "Wicker Park",   top: "45%", left: "20%" },
-                { name: "Lakeview",      top: "28%", left: "62%" },
-                { name: "Bridgeport",    top: "64%", left: "57%" },
+                { name: "Lincoln Park",  top: "12%", left: "72%" },
+                { name: "Loop",          top: "52%", left: "82%" },
+                { name: "Irving Park",   top: "28%", left: "14%" },
+                { name: "Elmwood Park",  top: "58%", left: "8%"  },
+                { name: "O'Hare",        top: "8%",  left: "25%" },
+                { name: "Hyde Park",     top: "85%", left: "58%" },
+                { name: "Norridge",      top: "25%", left: "84%" },
+                { name: "Portage Park",  top: "78%", left: "24%" },
+                { name: "Wicker Park",   top: "42%", left: "10%" },
+                { name: "Lakeview",      top: "15%", left: "58%" },
+                { name: "Bridgeport",    top: "72%", left: "62%" },
               ].map((n, i) => (
                 <motion.div
                   key={n.name}
