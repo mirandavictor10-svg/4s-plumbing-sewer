@@ -44,8 +44,8 @@ const beamGroups = [
   [allDots[2], allDots[7], allDots[9]],              // Irving Park → Portage Park → Lakeview
 ];
 
-const ANIM_MS = 2200;
-const GAP_MS  = 900;
+const ANIM_MS = 4400;
+const GAP_MS  = 1200;
 
 type Dot = { name: string; x: number; y: number };
 
@@ -74,24 +74,28 @@ function DispatchBeam({ dests, initialDelay }: { dests: Dot[]; initialDelay: num
 
   return (
     <>
-      {/* Traveling beam line */}
+      {/* Traveling beam — comet segment that travels HQ → destination then disappears */}
       <motion.path
         key={`line-${cycle}`}
         d={`M 50 50 L ${dest.x} ${dest.y}`}
-        stroke="rgba(96,165,250,0.75)"
+        stroke="rgba(96,165,250,0.7)"
         strokeWidth="0.45"
         strokeLinecap="round"
         fill="none"
         filter="url(#beamGlow)"
-        initial={{ pathLength: 0, opacity: 0 }}
+        initial={{ pathLength: 0.3, pathOffset: -0.3, opacity: 0 }}
         animate={{
-          pathLength: [0, 1, 1, 1],
+          pathOffset: [-0.3, 1.0],
           opacity:    [0, 0.9, 0.9, 0],
         }}
         transition={{
           duration: ANIM_MS / 1000,
-          times: [0, 0.45, 0.82, 1],
-          ease: "easeOut",
+          ease: "linear",
+          opacity: {
+            duration: ANIM_MS / 1000,
+            times: [0, 0.08, 0.85, 1],
+            ease: "easeOut",
+          },
         }}
       />
       {/* Arrival pulse dot */}
@@ -107,7 +111,7 @@ function DispatchBeam({ dests, initialDelay }: { dests: Dot[]; initialDelay: num
         }}
         transition={{
           duration: ANIM_MS / 1000,
-          times: [0, 0.45, 0.55, 0.82, 1],
+          times: [0, 0.6, 0.7, 0.88, 1],
           ease: "easeOut",
         }}
       />
@@ -187,14 +191,14 @@ const ServiceAreas = () => {
               {/* Pulsing center pin */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
                 <div className="relative">
-                  <span className="absolute inline-flex h-8 w-8 rounded-full bg-secondary/40 animate-ping" />
-                  <div className="relative w-8 h-8 rounded-full bg-secondary flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    <MapPin className="w-4 h-4 text-white" />
+                  <span className="absolute inline-flex h-6 w-6 rounded-full bg-secondary/30 animate-ping" />
+                  <div className="relative w-6 h-6 rounded-full bg-secondary/80 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                    <MapPin className="w-3 h-3 text-white/90" />
                   </div>
                 </div>
-                <div className="mt-3 bg-background/10 backdrop-blur-md border border-background/20 px-4 py-2 rounded-xl">
-                  <p className="text-[10px] font-black text-white uppercase tracking-[0.15em] whitespace-nowrap">4S Plumbing HQ</p>
-                  <p className="text-[9px] font-bold text-background/40 text-center">Chicago, IL 60634</p>
+                <div className="mt-2 bg-background/5 backdrop-blur-sm border border-background/10 px-3 py-1.5 rounded-lg">
+                  <p className="text-[8px] font-black text-white/60 uppercase tracking-[0.15em] whitespace-nowrap">4S Plumbing HQ</p>
+                  <p className="text-[7px] font-bold text-background/30 text-center">Chicago, IL 60634</p>
                 </div>
               </div>
 
