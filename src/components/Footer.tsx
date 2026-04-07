@@ -24,7 +24,7 @@ const Footer = () => (
           <div className="flex items-center gap-6">
             <div className="flex flex-col">
               <span className="text-secondary font-black text-2xl tracking-tighter">{company.masterLicense}</span>
-              <span className="text-[8px] font-black uppercase tracking-[0.2em] text-background/20">Master License</span>
+              <span className="text-[8px] font-black uppercase tracking-[0.2em] text-background/20">License</span>
             </div>
             <div className="h-8 w-px bg-background/10" />
             <div className="flex flex-col">
@@ -53,12 +53,12 @@ const Footer = () => (
           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-background/20 mb-8">Contact Us</h4>
           <div className="space-y-6">
             <a href={`tel:${company.phoneRaw}`} className="group block">
-              <span className="text-[9px] font-black uppercase tracking-widest text-background/30 block mb-1">Main Office</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-background/30 block mb-1">Chicago Line</span>
               <span className="text-xl font-black group-hover:text-secondary transition-colors">{company.phone}</span>
             </a>
-            <a href={`tel:${company.phoneAfterHoursRaw}`} className="group block">
-              <span className="text-[9px] font-black uppercase tracking-widest text-background/30 block mb-1">After Hours</span>
-              <span className="text-xl font-black group-hover:text-secondary transition-colors">{company.phoneAfterHours}</span>
+            <a href={`tel:${company.secondaryPhoneRaw}`} className="group block">
+              <span className="text-[9px] font-black uppercase tracking-widest text-background/30 block mb-1">{company.secondaryPhoneLabel}</span>
+              <span className="text-xl font-black group-hover:text-secondary transition-colors">{company.secondaryPhone}</span>
             </a>
             <div className="pt-4 opacity-40">
               <MapPin className="w-5 h-5 mb-2" />
@@ -72,7 +72,7 @@ const Footer = () => (
 
       <div className="pt-12 border-t border-background/5 flex flex-col md:flex-row justify-between items-center gap-8">
         <p className="text-[9px] font-black uppercase tracking-[0.3em] text-background/20">
-          © {company.footerCopyright} {company.name}, Inc.
+          © {company.footerCopyright} {company.name}
         </p>
         <div className="flex items-center gap-8 text-[9px] font-black uppercase tracking-[0.3em] text-background/20">
           <a href="#" className="hover:text-secondary transition-colors">Privacy Policy</a>

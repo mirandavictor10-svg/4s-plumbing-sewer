@@ -3,41 +3,40 @@ import { Phone, MapPin, Clock, Send, Zap, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { company } from "@/config/company.config";
 
-const contactDetails = [
-  {
-    icon: Phone,
-    label: "Main Office",
-    value: company.phone,
-    href: `tel:${company.phoneRaw}`,
-    accent: "blue",
-  },
-  {
-    icon: Phone,
-    label: "After Hours",
-    value: company.phoneAfterHours,
-    href: `tel:${company.phoneAfterHoursRaw}`,
-    accent: "slate",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: company.address.full,
-    href: null,
-    accent: "slate",
-  },
-  {
-    icon: Clock,
-    label: "Availability",
-    value: company.hours,
-    href: null,
-    accent: "emerald",
-  },
-];
-
 const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const contactDetails = [
+    {
+      icon: Phone,
+      label: "Chicago Line",
+      value: company.phone,
+      href: `tel:${company.phoneRaw}`,
+      accent: "blue",
+    },
+    {
+      icon: Phone,
+      label: company.secondaryPhoneLabel,
+      value: company.secondaryPhone,
+      href: `tel:${company.secondaryPhoneRaw}`,
+      accent: "slate",
+    },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: company.address.full,
+      href: null,
+      accent: "slate",
+    },
+    {
+      icon: Clock,
+      label: "Availability",
+      value: company.hours,
+      href: null,
+      accent: "emerald",
+    },
+  ];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,8 +101,7 @@ const ContactForm = () => {
             Get Your Free <span className="text-secondary italic">Estimate.</span>
           </h2>
           <p className="text-lg text-slate-400 font-medium max-w-lg mx-auto leading-relaxed">
-            Fill out the form and we'll call you back within {company.contact.callbackMin} minutes.
-            Upfront pricing — no obligation, no pressure.
+            {company.contact.callbackText}
           </p>
         </motion.div>
 
@@ -150,7 +148,7 @@ const ContactForm = () => {
             <div className="mt-6 p-5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 flex items-center gap-4">
               <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
               <p className="text-sm font-bold text-emerald-400">
-                Accepting calls now — response within {company.contact.callbackMin} min
+                {company.contact.availabilityText}
               </p>
             </div>
           </motion.div>
@@ -181,7 +179,7 @@ const ContactForm = () => {
                 </motion.div>
                 <h3 className="text-3xl font-black tracking-tighter text-white">We're On It!</h3>
                 <p className="text-secondary font-bold text-sm tracking-wide bg-secondary/10 inline-block px-6 py-3 rounded-xl border border-secondary/20">
-                  A {company.shortName} technician will call you within {company.contact.callbackMin} minutes.
+                  {company.contact.successText}
                 </p>
                 <p className="text-slate-500 text-sm font-medium">
                   Or call us directly:{" "}
@@ -216,13 +214,11 @@ const ContactForm = () => {
                 <Field label="Service Needed">
                   <select name="service" className={inputCls}>
                     <option className="bg-slate-900">What do you need help with?</option>
-                    <option className="bg-slate-900">Emergency — I Need Help Now</option>
-                    <option className="bg-slate-900">Sewer &amp; Drain Service</option>
-                    <option className="bg-slate-900">Plumbing Repair</option>
-                    <option className="bg-slate-900">Water Heater Service</option>
-                    <option className="bg-slate-900">HVAC Service</option>
-                    <option className="bg-slate-900">Gas Line Service</option>
-                    <option className="bg-slate-900">Winterization</option>
+                    {company.contact.serviceOptions.map((option) => (
+                      <option key={option} className="bg-slate-900">
+                        {option}
+                      </option>
+                    ))}
                   </select>
                 </Field>
 

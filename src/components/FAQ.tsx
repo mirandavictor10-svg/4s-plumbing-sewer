@@ -82,8 +82,8 @@ const FAQ = () => {
         >
           Have another question? Call us at{" "}
           <a href={`tel:${company.phoneRaw}`} className="text-secondary font-bold hover:underline">{company.phone}</a>
-          {" "}or text{" "}
-          <a href={`tel:${company.phoneAfterHoursRaw}`} className="text-secondary font-bold hover:underline">{company.phoneAfterHours}</a>
+          {" "}or use the {company.secondaryPhoneLabel.toLowerCase()}{" "}
+          <a href={`tel:${company.secondaryPhoneRaw}`} className="text-secondary font-bold hover:underline">{company.secondaryPhone}</a>
         </motion.p>
       </div>
     </section>

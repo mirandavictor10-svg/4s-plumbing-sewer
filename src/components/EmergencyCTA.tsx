@@ -41,7 +41,7 @@ const EmergencyCTA = () => {
             Call {company.phone}
           </a>
           <p className="text-sm font-bold text-background/40">
-            Available 24/7 — No Overtime Charges — {company.stats.responseMin}-Minute Response
+            {company.emergency.responseText}
           </p>
         </motion.div>
       </div>

@@ -32,7 +32,7 @@ const Testimonials = () => {
         >
           <div className="inline-flex items-center gap-2 bg-secondary/10 px-4 py-1.5 rounded-full border border-secondary/20 shadow-sm">
             <Star className="w-3.5 h-3.5 text-secondary fill-secondary" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-secondary">{company.stats.reviewRating}★ on Google</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-secondary">{company.stats.reviewLabel}</span>
           </div>
           <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-950 leading-[0.9] drop-shadow-sm">
             What Our Customers <br /><span className="text-secondary italic">Are Saying.</span>
@@ -85,7 +85,7 @@ const Testimonials = () => {
         >
           <p className="text-xs font-bold text-slate-400 flex items-center justify-center gap-2">
             <span className="flex gap-1">{[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />)}</span>
-            Rated {company.stats.reviewRating}/5 across {company.stats.reviewCount}+ verified Google reviews
+            {company.stats.reviewFooter}
           </p>
         </motion.div>
       </div>
