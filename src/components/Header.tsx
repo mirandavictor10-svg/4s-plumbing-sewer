@@ -60,7 +60,7 @@ const Header = () => {
               whileTap={{ scale: 0.95 }}
               src={logo}
               alt={company.shortName}
-              className="h-16 md:h-20 w-auto relative z-10 transition-all duration-500"
+              className="h-32 md:h-40 w-auto relative z-10 transition-all duration-500"
             />
           </a>
 
