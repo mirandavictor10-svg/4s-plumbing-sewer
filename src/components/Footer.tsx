@@ -19,7 +19,7 @@ const Footer = () => (
             <img
               src={logo}
               alt={company.shortName}
-              className="h-16 w-auto rounded-xl bg-white px-4 py-3 shadow-lg ring-1 ring-black/10"
+              className="h-20 md:h-24 w-auto"
             />
           </motion.a>
           <p className="text-background/40 font-bold uppercase text-xs tracking-[0.2em] leading-relaxed max-w-sm">
